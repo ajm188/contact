@@ -36,7 +36,11 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: sanitize user input
+	if replyTo, err := ensureValidEmail(replyTo); err != nil {
+		// TODO: 400
+		return
+	}
+	// TODO: sanitize subject and body
 
 	message := fmt.Sprintf("From: %s\r\nReply-To: %s\r\nSubject: %s\r\n\r\n%s\r\n.\r\n", replyTo, replyTo, subject, body)
 	msg := []byte(message)
