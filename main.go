@@ -22,6 +22,17 @@ var (
 	auth = smtp.PlainAuth("", user, password, hostname)
 )
 
+func handler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		http.ServeFile(w, r, "form.html")
+	case "POST":
+		handleContact(w, r)
+	default:
+		// TODO 4xx bad method
+	}
+}
+
 func handleContact(w http.ResponseWriter, r *http.Request) {
 	var err error
 	if err = r.ParseForm(); err != nil {
@@ -54,8 +65,6 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// TODO: make sure hostname, username, password are non-empty
-	// TODO: make sure port is non-empty
-	http.HandleFunc("/contact", handleContact)
-	http.ListenAndServe(os.Getenv("CONTACT_PORT"), nil)
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8080", nil)
 }
