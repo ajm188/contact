@@ -22,7 +22,8 @@ var (
 )
 
 func handleContact(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
+	var err error
+	if err = r.ParseForm(); err != nil {
 		// TODO: 400
 		return
 	}
@@ -36,7 +37,7 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if replyTo, err := ensureValidEmail(replyTo); err != nil {
+	if replyTo, err = ensureValidEmail(replyTo); err != nil {
 		// TODO: 400
 		return
 	}
