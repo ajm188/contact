@@ -8,9 +8,10 @@ import (
 )
 
 var (
-	hostname = os.Getenv("CONTACT_HOSTNAME")
-	username = os.Getenv("CONTACT_USERNAME")
-	password = os.Getenv("CONTACT_PASSWORD")
+	hostname = os.Getenv("HOSTNAME")
+	password = os.Getenv("PASSWORD")
+
+	user = os.Getenv("USER")
 )
 
 var (
@@ -18,7 +19,7 @@ var (
 )
 
 var (
-	auth = smtp.PlainAuth("", username, password, hostname)
+	auth = smtp.PlainAuth("", user, password, hostname)
 )
 
 func handleContact(w http.ResponseWriter, r *http.Request) {
