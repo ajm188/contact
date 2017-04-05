@@ -40,7 +40,7 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	replyTo := r.FormValue("replyTo")
+	replyTo := r.FormValue("email")
 	subject := r.FormValue("subject")
 	body := r.FormValue("body")
 
